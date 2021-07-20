@@ -1,0 +1,17 @@
+import pygame
+
+# BOARD DETAILS
+WIDTH, HEIGHT = 800, 800
+ROWS, COLS = 10, 10
+SQUARE_SIZE = 600//COLS
+
+SNAKE = {'17': '6', '42': '28', '62': '19', '64': '60', '93': '73'}
+
+# DICE DETAILS
+NORMAL_DICE = 'NORMAL'
+CROOKED_DICE = 'CROOKED'
+
+RED = (255, 0, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0,200,0)
