@@ -19,15 +19,14 @@ class Board:
         pygame.display.set_caption('SNAKE AND LADDER GAME')
         win.fill(WHITE)
 
-        self.draw_squares(win)
-        self.add_piece(win)
-        self.add_snake(win)
-
         dicemovement = DiceMovement()
-        dicemovement.add_dice(dicemovement, win, dicemovement.dice_roll(self.dice_type))
+        win.blit(pygame.image.load(os.path.join(sys.path[0]) + "/graphics/dice1.png"), (0, 650))
+        pygame.display.update()
 
         run = True
         while run:
+            self.draw_squares(win)
+            self.add_snake(win)
             mouse = pygame.mouse.get_pos()
 
             for event in pygame.event.get():
@@ -59,7 +58,7 @@ class Board:
                 pygame.draw.rect(win, box, (left, top, SQUARE_SIZE, SQUARE_SIZE))
 
                 small_font = pygame.font.SysFont('Corbel', 15)
-                text = small_font.render(str((row-1)*10 + 11 - col if is_even_row else (row-1)*10 + col), True, BLACK)
+                text = small_font.render(str((row-1) * 10 + 11 - col if is_even_row else (row-1)*10 + col), True, BLACK)
                 win.blit(text, (left, top))
 
     def add_snake(self, win):

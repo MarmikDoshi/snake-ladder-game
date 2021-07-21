@@ -4,7 +4,7 @@ import sys
 
 import pygame
 
-import constants
+from constants import SQUARE_SIZE, SNAKE
 
 
 class DiceMovement:
@@ -12,6 +12,7 @@ class DiceMovement:
 
     def __init__(self, ):
         self.player_position = 0
+        self.current_coordinates = pygame.Rect(10, 10, 0, 0)
 
     def add_dice(self, dice_movement, win, dice_number):
         """Add dice in the game and move the player position accordingly."""
@@ -30,9 +31,17 @@ class DiceMovement:
     def move_player(self, win, dice_output):
         """Initialize the game for the player starting position at 0."""
         self.player_position += dice_output
+        if self.player_position in SNAKE:
+            self.player_position = SNAKE[self.player_position]
 
-        if self.player_position in constants.SNAKE:
-            self.player_position = constants.SNAKE[dice_output]
+        current_row = (self.player_position - 1) // 10
+        self.current_coordinates.y = (9-current_row)*SQUARE_SIZE
 
-        win.blit(pygame.image.load(os.path.join(sys.path[0]) + "/graphics/redpiece.png"), (10 + dice_output, 550))
+        if self.player_position % 10:
+            self.current_coordinates.x = (10-((self.player_position-1) % 10))*SQUARE_SIZE if current_row % 2 else (self.player_position % 10)*SQUARE_SIZE
+        else:
+            self.current_coordinates.x = (10 - ((self.player_position - 1) % 10)) * SQUARE_SIZE if current_row % 2 else (10 * SQUARE_SIZE)
+
+        win.blit(pygame.image.load(os.path.join(sys.path[0]) + "/graphics/redpiece.png"), self.current_coordinates)
+
         pygame.display.update()
